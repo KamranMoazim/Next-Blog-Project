@@ -14,3 +14,14 @@ exports.userSignupValidator = [
         .isAlphanumeric()
         .withMessage("Password must contain Alphanumeric Characters."),
 ]
+
+exports.userSigninValidator = [
+    check("email")
+        .isEmail()
+        .withMessage("Email must be Valid."),
+    check("password")
+        .isLength({min:6})
+        .withMessage("Password must be of at least 6.")
+        .isAlphanumeric()
+        .withMessage("Password must contain Alphanumeric Characters."),
+]
