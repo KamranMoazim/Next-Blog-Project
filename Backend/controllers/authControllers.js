@@ -40,7 +40,6 @@ exports.signup = (req, res) => {
                 res.json({message:"Signup Successfully!"})
             })
         })
-
 }
 
 
@@ -82,6 +81,16 @@ exports.signin = (req, res) => {
                 user: {_id, username, name, email, role}
             });
         })
-
 }
 
+
+
+exports.signout = (req, res) => {
+    res.clearCookie("token");
+    res.json({message:"Signout Successfully!"})
+}
+
+
+// exports.requireSignin = expressJwt({
+//     secret: process.env.JWT_SECRET_KEY
+// })
