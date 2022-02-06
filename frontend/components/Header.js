@@ -11,9 +11,12 @@ import {Navbar,
         DropdownItem, 
         NavbarText, 
         DropdownMenu} from "reactstrap";
+        
 import Link from 'next/link';
+import Router from 'next/router';
 
 import {APP_NAME} from "../config.js"
+import {signout, isAuth} from "../actions/auth"
 
 function Header() {
   return <div>
@@ -22,7 +25,7 @@ function Header() {
                 expand="md"
                 light
             >
-                <Link href="/">
+                <Link href="/" forwardRef>
                     <NavbarBrand className='font-weight-bold'>
                         {APP_NAME}
                     </NavbarBrand>
@@ -34,20 +37,28 @@ function Header() {
                     className="ml-auto"
                     navbar
                 >
-                    <Link href="/signup">
+                    {!(isAuth()) && (<><Link href="/signup" forwardRef>
                         <NavItem>
-                            <NavLink>
+                            <NavLink style={{cursor:"pointer"}}>
                                 Signup
                             </NavLink>
                         </NavItem>
                     </Link>
-                    <Link href="/signin">
+                    <Link href="/signin" forwardRef>
                         <NavItem>
-                            <NavLink>
+                            <NavLink style={{cursor:"pointer"}}>
                                 Signin
                             </NavLink>
                         </NavItem>
-                    </Link>
+                    </Link></>)}
+
+                    {isAuth() && (
+                        <NavItem>
+                            <NavLink style={{cursor:"pointer"}} onClick={()=>signout(()=>Router.replace("/signin"))}>
+                                Signout
+                            </NavLink>
+                        </NavItem>
+                    )}
                 </Nav>
                 </Collapse>
             </Navbar>

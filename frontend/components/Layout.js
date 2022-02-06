@@ -6,7 +6,7 @@ function Layout({children}) {
   return <>
     <Header />
     {children}
-    <p>Footer</p>
+    {/* <p>Footer</p> */}
   </>;
 }
 
