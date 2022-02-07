@@ -6,12 +6,18 @@ import {Navbar,
         Collapse, 
         NavItem, 
         NavLink} from "reactstrap";
-        
+import NProgress from "nprogress";
 import Link from 'next/link';
 import Router from 'next/router';
 
 import {APP_NAME} from "../config.js"
 import {signout, isAuth} from "../actions/auth"
+
+
+Router.onRouteChangeStart = url => NProgress.start();
+Router.onRouteChangeComplete = url => NProgress.done();
+Router.onRouteChangeError = url => NProgress.done();
+
 
 function Header() {
   return <div>
