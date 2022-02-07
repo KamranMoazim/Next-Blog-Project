@@ -6,9 +6,7 @@ import Layout from "../components/Layout"
 
 function index() {
   return <Layout>
-    <Link href="/signup">
-      <a>Signup</a>
-    </Link>
+    <h1>Home Page</h1>
   </Layout>;
 }
 

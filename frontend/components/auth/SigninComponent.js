@@ -35,7 +35,12 @@ function SigninComponent() {
                 // save user info to localStorage
                 // authenticate user
                 authenticate(data, ()=>{
-                    Router.push("/")
+                    // Router.push("/")
+                    if (isAuth() && isAuth().role === 1) {
+                        Router.push("/admin")
+                    } else {
+                        Router.push("/user")
+                    }
                 })
             }
         })

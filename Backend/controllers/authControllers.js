@@ -5,6 +5,9 @@ const jwt = require("jsonwebtoken");
 const expressJwt = require("express-jwt");
 
 
+
+
+
 exports.signup = (req, res) => {
 
     // validating
@@ -91,6 +94,43 @@ exports.signout = (req, res) => {
 }
 
 
-// exports.requireSignin = expressJwt({
-//     secret: process.env.JWT_SECRET_KEY
-// })
+exports.requireSignin = expressJwt({
+    secret: process.env.JWT_SECRET_KEY,
+    // algorithms: ['RS256']
+    algorithms: ['HS256']
+})
+
+
+exports.authMiddleware = (req, res, next) => {
+    
+    const authUserId = req.user._id;
+    User.findById({_id:authUserId}).exec((err, user)=>{
+        if(err || !user){
+            return res.status(400).json({
+                error:"USER not Found!"
+            })
+        }
+        req.profile = user
+        next();
+    })
+}
+
+
+exports.adminMiddleware = (req, res, next) => {
+    
+    const authUserId = req.user._id;
+    User.findById({_id:authUserId}).exec((err, user)=>{
+        if(err || !user){
+            return res.status(400).json({
+                error:"USER not Found!"
+            })
+        }
+        if (user.role !== 1) {
+            return res.status(400).json({
+                error:"Access Denied!"
+            })
+        }
+        req.profile = user
+        next();
+    })
+}

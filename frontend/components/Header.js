@@ -5,12 +5,7 @@ import {Navbar,
         Nav, 
         Collapse, 
         NavItem, 
-        NavLink, 
-        DropdownToggle, 
-        UncontrolledDropdown, 
-        DropdownItem, 
-        NavbarText, 
-        DropdownMenu} from "reactstrap";
+        NavLink} from "reactstrap";
         
 import Link from 'next/link';
 import Router from 'next/router';
@@ -52,6 +47,27 @@ function Header() {
                         </NavItem>
                     </Link></>)}
 
+
+                    {isAuth() && isAuth().role === 0 && (
+                        <NavItem>
+                            <Link href="/user">
+                                <NavLink>
+                                    {`${isAuth().name}'s DASHBOARD`}
+                                </NavLink>
+                            </Link>
+                        </NavItem>
+                    )} 
+
+                    {isAuth() && isAuth().role === 1 && (
+                        <NavItem>
+                            <Link href="/admin">
+                                <NavLink>
+                                    {`${isAuth().name}'s DASHBOARD`}
+                                </NavLink>
+                            </Link>
+                        </NavItem>
+                    )} 
+
                     {isAuth() && (
                         <NavItem>
                             <NavLink style={{cursor:"pointer"}} onClick={()=>signout(()=>Router.replace("/signin"))}>
@@ -59,6 +75,7 @@ function Header() {
                             </NavLink>
                         </NavItem>
                     )}
+
                 </Nav>
                 </Collapse>
             </Navbar>

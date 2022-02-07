@@ -9,6 +9,7 @@ require("dotenv").config();
 // other Routes
 const blogRoutes = require("./routes/blogsRoutes");
 const authRoutes = require("./routes/authRoutes");
+const userRoutes = require("./routes/userRoutes");
 
 // app
 const app = express();
@@ -32,6 +33,7 @@ if (process.env.NODE_ENV === 'development') {
 // routes middleware
 app.use("/api", blogRoutes);
 app.use("/api", authRoutes);
+app.use("/api", userRoutes);
 
 
 
