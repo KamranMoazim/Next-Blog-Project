@@ -60,7 +60,7 @@ exports.signin = (req, res) => {
     // check if user exist
     User
         .findOne({
-            email: req.body.email
+            email: email
         })
         .exec((err, user)=>{
             if(err || !user){
@@ -117,7 +117,7 @@ exports.authMiddleware = (req, res, next) => {
 
 
 exports.adminMiddleware = (req, res, next) => {
-    
+    // console.log(req);
     const authUserId = req.user._id;
     User.findById({_id:authUserId}).exec((err, user)=>{
         if(err || !user){

@@ -60,9 +60,7 @@ export const signout = (next) => {
 
 // set cookie
 export const setCookie = (key, value) => {
-    console.log("setCookie out");
     if (process.browser) {
-        console.log("setCookie in");
         cookie.set(key, value, {
             expires: 1
         })

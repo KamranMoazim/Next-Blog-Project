@@ -38,21 +38,6 @@ function Header() {
                     className="ml-auto"
                     navbar
                 >
-                    {!(isAuth()) && (<><Link href="/signup" forwardRef>
-                        <NavItem>
-                            <NavLink style={{cursor:"pointer"}}>
-                                Signup
-                            </NavLink>
-                        </NavItem>
-                    </Link>
-                    <Link href="/signin" forwardRef>
-                        <NavItem>
-                            <NavLink style={{cursor:"pointer"}}>
-                                Signin
-                            </NavLink>
-                        </NavItem>
-                    </Link></>)}
-
 
                     {isAuth() && isAuth().role === 0 && (
                         <NavItem>
@@ -73,6 +58,21 @@ function Header() {
                             </Link>
                         </NavItem>
                     )} 
+
+                    {!(isAuth()) && (<><Link href="/signup" forwardRef>
+                        <NavItem>
+                            <NavLink style={{cursor:"pointer"}}>
+                                Signup
+                            </NavLink>
+                        </NavItem>
+                    </Link>
+                    <Link href="/signin" forwardRef>
+                        <NavItem>
+                            <NavLink style={{cursor:"pointer"}}>
+                                Signin
+                            </NavLink>
+                        </NavItem>
+                    </Link></>)}
 
                     {isAuth() && (
                         <NavItem>

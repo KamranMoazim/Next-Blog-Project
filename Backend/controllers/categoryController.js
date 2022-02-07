@@ -6,6 +6,7 @@ const {errorHandler} = require("../helpers/dbErrorHandler")
 
 exports.create = (req, res) => {
     // validating
+    // console.log(req.body);
     const errors = validationResult(req);
     if(!errors.isEmpty()){
         return res.status(422).json({ error: errors.array()[0].msg })
