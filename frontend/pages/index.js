@@ -7,6 +7,9 @@ import Layout from "../components/Layout"
 function index() {
   return <Layout>
     <h1>Home Page</h1>
+    <div>
+      
+    </div>
   </Layout>;
 }
 

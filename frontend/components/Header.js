@@ -38,6 +38,13 @@ function Header() {
                     className="ml-auto"
                     navbar
                 >
+                    <NavItem>
+                            <Link href="/blogs">
+                                <NavLink>
+                                    {`BLOGS`}
+                                </NavLink>
+                            </Link>
+                    </NavItem>
 
                     {isAuth() && isAuth().role === 0 && (
                         <NavItem>
