@@ -26,7 +26,7 @@ export const getBlogsWithCategoriesAndTags = (skip, limit) => {
     const data = {
         skip, limit
     }
-    console.log(data);
+    // console.log(data);
     return fetch(`${API}/blog-categories-tags`, {
         method:"POST",
         headers:{
@@ -69,3 +69,25 @@ export const singleBlog = (slug) => {
         })
 }
 
+
+
+
+export const listRelatedBlogs = (blog) => {
+
+    // console.log(blog);
+
+    return fetch(`${API}/blog/related`, {
+        method:"POST",
+        headers:{
+            Accept:"application/json",
+            'Content-Type':"application/json",
+        },
+        body: JSON.stringify(blog)
+    })
+        .then((res)=>{
+            return res.json();
+        })
+        .catch((err)=>{
+            console.log(err);
+        })
+}

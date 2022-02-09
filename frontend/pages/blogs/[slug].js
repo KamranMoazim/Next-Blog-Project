@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import Head from "next/head"
 import {withRouter} from "next/router"
 
@@ -7,11 +7,38 @@ import moment from "moment"
 import renderHtml from "react-render-html"
 
 import Layout from "../../components/Layout"
-import {singleBlog} from "../../actions/blog"
+import {singleBlog, listRelatedBlogs} from "../../actions/blog"
 import {API, APP_NAME, DOMAIN} from "../../config"
+import SmallCard from '../../components/blog/SmallCard';
 
 
 function SingleBlog({blog, router}) {
+
+    const [relatedBlogs, setRealtedBlogs] = useState([]);
+
+    const loadRelatedBlogs = (blog) => {
+        listRelatedBlogs(blog)
+            .then((data)=>{
+                if (data.error) {
+                    console.log(data.error);
+                }
+                setRealtedBlogs(data)
+            })
+    }
+
+    useEffect(()=>{
+        loadRelatedBlogs(blog)
+    },[])
+
+    const showRelatedBlogs = () => {
+        return relatedBlogs.map((rblog, ind)=>{
+            return <div key={ind} className='col-md-4'>
+                <article>
+                    <SmallCard blog={rblog} />
+                </article>
+            </div>
+        })
+    }
 
     const head = () => {
         return <Head>
@@ -88,6 +115,9 @@ function SingleBlog({blog, router}) {
                     </div>
                     <div className='container pb-5'>
                         <h4 className='text-center pt-5 pb-5 h2'>Related Blogs</h4>
+                        <div className='row'>
+                            {showRelatedBlogs()}
+                        </div>
                     </div>
                     <div className='container pb-5'>
                         <h4 className='text-center pt-5 pb-5 h2'>show comments</h4>

@@ -206,7 +206,7 @@ exports.singleBlog = (req, res) => {
 
 
 exports.deleteBlog = (req, res) => {
-    const slug = req.params.slug.toLowerCase();
+    const slug = req.params.id;
     Blog.findOneAndRemove({slug})
         .exec((err, data)=>{
             if (err) {
@@ -224,7 +224,7 @@ exports.deleteBlog = (req, res) => {
 
 exports.updateBlog = (req, res) => {
 
-    const slug = req.params.slug.toLowerCase();
+    const slug = req.params.id;
 
     Blog.findOne({slug})
         .exec((err, oldBlog)=>{
@@ -298,7 +298,7 @@ exports.updateBlog = (req, res) => {
 
 
 exports.showPhoto = (req, res) => {
-    const slug = req.params.slug.toLowerCase();
+    const slug = req.params.id;
 
     Blog.findOne({slug})
         .select("photo")
@@ -310,5 +310,25 @@ exports.showPhoto = (req, res) => {
             }
             res.set("Content-Type", blog.photo.contentType)
             return res.send(blog.photo.data)
+        })
+}
+
+exports.listRelatedBlogs = (req, res) => {
+    // console.log(req.body);
+    let limit = req.body.limit ? parseInt(req.body.limit) : 10;
+    const {_id, categories } = req.body
+
+
+    Blog.find({_id:{$ne:_id}, categories:{$in:categories}})
+        .limit(limit)
+        .populate("postedBy", "_id name profile")
+        .select("_id title slug excerpt postedBy createdAt updatedAt")
+        .exec((err, data)=>{
+            if (err) {
+                return res.json({
+                    error:errorHandler(err)
+                })
+            }
+            res.json(data)
         })
 }
