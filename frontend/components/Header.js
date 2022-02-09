@@ -12,6 +12,7 @@ import Router from 'next/router';
 
 import {APP_NAME} from "../config.js"
 import {signout, isAuth} from "../actions/auth"
+import Search from "./blog/Search"
 
 
 Router.onRouteChangeStart = url => NProgress.start();
@@ -20,7 +21,7 @@ Router.onRouteChangeError = url => NProgress.done();
 
 
 function Header() {
-  return <div>
+  return <>
             <Navbar
                 color="light"
                 expand="md"
@@ -92,7 +93,8 @@ function Header() {
                 </Nav>
                 </Collapse>
             </Navbar>
-        </div>;
+            <Search />
+        </>;
 }
 
 export default Header;

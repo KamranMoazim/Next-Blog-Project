@@ -335,3 +335,26 @@ exports.listRelatedBlogs = (req, res) => {
             res.json(data)
         })
 }
+
+
+exports.listBlogSearch = (req, res) => {
+    // console.log(req.query);
+    const {search} = req.query;
+    // console.log(search);
+
+    if (search) {
+        Blog.find({
+            $or: [{title: {$regex:search, $options:"i"}}, {body: {$regex:search, $options:"i"}}]
+        })
+        .select("-photo -body")
+        .then((data)=>{
+            if (data.error) {
+                return res.json({
+                    error:errorHandler(data.error)
+                })
+            }
+            // console.log(data);
+            res.json(data)
+        })
+    }
+}
