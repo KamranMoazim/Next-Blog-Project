@@ -22,12 +22,18 @@ export const createBlog = (blog, token) => {
 }
 
 
-export const getBlogsWithCategoriesAndTags = () => {
+export const getBlogsWithCategoriesAndTags = (skip, limit) => {
+    const data = {
+        skip, limit
+    }
+    console.log(data);
     return fetch(`${API}/blog-categories-tags`, {
-        method:"GET",
+        method:"POST",
         headers:{
-            Accept:"application/json"
-        }
+            Accept:"application/json",
+            'Content-Type':"application/json",
+        },
+        body: JSON.stringify(data)
     })
         .then((res)=>{
             return res.json();
@@ -51,7 +57,8 @@ export const getBlogs = () => {
 
 
 export const singleBlog = (slug) => {
-    return fetch(`${API}/category/${slug}`, {
+    // console.log(slug);
+    return fetch(`${API}/blog/${slug}`, {
         method:"GET",
     })
         .then((res)=>{

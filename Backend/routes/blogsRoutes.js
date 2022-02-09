@@ -6,7 +6,7 @@ const {adminMiddleware, requireSignin} = require("../controllers/authControllers
 
 router.post("/blog", requireSignin, adminMiddleware, createBlog);
 router.get("/blog", listBlogs);
-router.get("/blog-categories-tags", listBlogsCategoriesTags);
+router.post("/blog-categories-tags", listBlogsCategoriesTags);
 router.get("/blog/:id", singleBlog);
 router.delete("/blog/:id", requireSignin, adminMiddleware, deleteBlog);
 router.put("/blog/:id", requireSignin, adminMiddleware, updateBlog);

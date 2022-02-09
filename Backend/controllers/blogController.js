@@ -186,7 +186,9 @@ exports.listBlogsCategoriesTags = (req, res) => {
 }
 
 exports.singleBlog = (req, res) => {
-    const slug = req.params.slug.toLowerCase();
+    // const slug = req.params.slug.toLowerCase();
+    const slug = req.params.id;
+    // console.log(slug);
     Blog.findOne({slug})
         .populate("categories", "_id name slug")
         .populate("tags", "_id name slug")
