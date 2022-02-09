@@ -87,7 +87,7 @@ function Blogs({blogs, categories, tags, totalBlogs, blogsLimit, blogsSkip, rout
 
     const showAllTags = () => {
         return tags.map((tag, ind)=>{
-            return <Link key={ind} href={`/categories/${tag.slug}`}>
+            return <Link key={ind} href={`/tags/${tag.slug}`}>
                 <a className='btn btn-outline-primary mr-1 ml-1 mt-3'>
                     {tag.name}
                 </a>

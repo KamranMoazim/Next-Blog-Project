@@ -2,6 +2,7 @@ const { validationResult } = require("express-validator");
 const slugify = require("slugify")
 
 const Category = require("../models/categoryModel")
+const Blog = require("../models/blogModel")
 const {errorHandler} = require("../helpers/dbErrorHandler")
 
 exports.create = (req, res) => {
@@ -46,7 +47,20 @@ exports.read = (req, res) => {
                 error:errorHandler(err)
             }) 
         }
-        res.json(category)
+        // res.json(category)
+        Blog.find({categories:category})
+            .populate("categories", "_id name slug")
+            .populate("tags", "_id name slug")
+            .populate("postedBy", "_id name")
+            .select("_id title slug excerpt categories tags postedBy createdAt updatedAt")
+            .exec((err, data)=>{
+                if (err) {
+                    return res.json({
+                        error:errorHandler(err)
+                    })
+                }
+                res.json({category:category, blogs:data})
+            })
     })
 }
 
