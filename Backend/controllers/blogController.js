@@ -193,7 +193,7 @@ exports.singleBlog = (req, res) => {
         .populate("categories", "_id name slug")
         .populate("tags", "_id name slug")
         .populate("postedBy", "_id name username")
-        .select("_id title slug excerpt categories tags postedBy createdAt updatedAt")
+        .select("_id title slug excerpt categories tags body postedBy createdAt updatedAt")
         .exec((err, data)=>{
             if (err) {
                 return res.json({
@@ -207,6 +207,7 @@ exports.singleBlog = (req, res) => {
 
 exports.deleteBlog = (req, res) => {
     const slug = req.params.id;
+    console.log(slug);
     Blog.findOneAndRemove({slug})
         .exec((err, data)=>{
             if (err) {
@@ -225,10 +226,12 @@ exports.deleteBlog = (req, res) => {
 exports.updateBlog = (req, res) => {
 
     const slug = req.params.id;
+    // console.log(slug);
 
     Blog.findOne({slug})
         .exec((err, oldBlog)=>{
             if (err) {
+                console.log(err);
                 return res.status(400).json({
                     error: errorHandler(err)
                 })

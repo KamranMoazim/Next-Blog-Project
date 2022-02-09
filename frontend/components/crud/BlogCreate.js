@@ -101,7 +101,7 @@ function BlogCreate({router}) {
   const handleBody = (e) => {
     setBody(e);
     formData.set("body", body);
-    console.log(body);
+    // console.log(body);
     if (typeof(window) !== "undefined") {
       localStorage.setItem('blog', JSON.stringify(e))
     }
