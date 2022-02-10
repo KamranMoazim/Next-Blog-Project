@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import Head from "next/head"
 import {withRouter} from "next/router"
+import Disqus from "disqus-react"
 
 import Link from "next/link"
 import moment from "moment"
@@ -8,7 +9,7 @@ import renderHtml from "react-render-html"
 
 import Layout from "../../components/Layout"
 import {singleBlog, listRelatedBlogs} from "../../actions/blog"
-import {API, APP_NAME, DOMAIN} from "../../config"
+import {API, APP_NAME, DOMAIN, DISQUS_SHORTNAME} from "../../config"
 import SmallCard from '../../components/blog/SmallCard';
 
 
@@ -81,6 +82,13 @@ function SingleBlog({blog, router}) {
         })
     }
 
+    const disqusShortname = DISQUS_SHORTNAME
+    const disqusConfig = {
+      url: DOMAIN,
+      identifier: blog._id,
+      title: blog.title
+    }
+
   return <>
   {head()}
     <Layout>
@@ -122,7 +130,12 @@ function SingleBlog({blog, router}) {
                         </div>
                     </div>
                     <div className='container pb-5'>
-                        <h4 className='text-center pt-5 pb-5 h2'>show comments</h4>
+                        <h4 className='text-center pt-5 pb-5 h2'>
+                        </h4>
+                            <Disqus.DiscussionEmbed
+                                shortname={disqusShortname}
+                                config={disqusConfig}
+                            />
                     </div>
                 </div>
             </article>

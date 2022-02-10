@@ -1,5 +1,5 @@
 import fetch from "isomorphic-fetch"
-import {isAuth} from "../actions/auth"
+import {isAuth, handleResponse} from "../actions/auth"
 import {API} from "../config"
 import queryString from "query-string"
 
@@ -23,6 +23,7 @@ export const createBlog = (blog, token) => {
         body: blog
     })
         .then((res)=>{
+            handleResponse(res)
             return res.json();
         })
         .catch((err)=>{
@@ -120,6 +121,7 @@ export const removeBlog = (slug, token) => {
         }
     })
         .then((res)=>{
+            handleResponse(res)
             return res.json();
         })
         .catch((err)=>{
@@ -147,6 +149,7 @@ export const updateBlog = (blog, token, slug) => {
         body: blog
     })
         .then((res)=>{
+            handleResponse(res)
             return res.json();
         })
         .catch((err)=>{
@@ -170,3 +173,7 @@ export const listSearchBlogs = (params) => {
             console.log(err);
         })
 }
+
+
+
+

@@ -47,6 +47,7 @@ export const updateProfile = (token, user) => {
         body:user
     })
         .then((res)=>{
+            handleResponse(res)
             return res.json();
         })
         .catch((err)=>{

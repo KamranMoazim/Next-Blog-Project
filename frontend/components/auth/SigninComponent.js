@@ -23,7 +23,7 @@ function SigninComponent() {
     const handleSubmit = (e) => {
         e.preventDefault()
         console.table({email, password, error, loading, message, showForm});
-        setValues({...values, error:false, loading:true })
+        setValues({...values, error:false, loading:"Loading..." })
         const user = {email, password};
 
         signin(user)

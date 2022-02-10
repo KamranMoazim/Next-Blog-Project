@@ -1,6 +1,7 @@
 import fetch from "isomorphic-fetch"
 
 import {API} from "../config"
+import {handleResponse} from "../actions/auth"
 
 
 
@@ -16,6 +17,7 @@ export const createTag = (tag, token) => {
         body:JSON.stringify(tag)
     })
         .then((res)=>{
+            handleResponse(res)
             return res.json();
         })
         .catch((err)=>{
@@ -59,6 +61,7 @@ export const deleteTag = (slug, token) => {
         }
     })
         .then((res)=>{
+            handleResponse(res)
             return res.json();
         })
         .catch((err)=>{

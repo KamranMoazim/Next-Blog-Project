@@ -75,7 +75,7 @@ function Blogs({blogs, categories, tags, totalBlogs, blogsLimit, blogsSkip, rout
         })
     }
 
-    const showAllCategories = () => {
+    const showAllCategories = (categories) => {
         return categories.map((cate, ind)=>{
             return <Link key={ind} href={`/categories/${cate.slug}`}>
                 <a className='btn btn-primary mr-1 ml-1 mt-3'>
@@ -85,7 +85,7 @@ function Blogs({blogs, categories, tags, totalBlogs, blogsLimit, blogsSkip, rout
         })
     }
 
-    const showAllTags = () => {
+    const showAllTags = (tags) => {
         return tags.map((tag, ind)=>{
             return <Link key={ind} href={`/tags/${tag.slug}`}>
                 <a className='btn btn-outline-primary mr-1 ml-1 mt-3'>
