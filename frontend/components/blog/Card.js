@@ -40,7 +40,9 @@ function Card({blog}) {
         </header>
         <section>
             <p className='mark ml-1 pt-2 pb-2'>
-                Written By {blog.postedBy.name} | Published {moment(blog.updatedAt).fromNow()}
+                Written By <Link href={`/profile/${blog.postedBy.username}`}>
+                    {blog.postedBy.username}
+                </Link> | Published {moment(blog.updatedAt).fromNow()}
             </p>
         </section>
         <section>

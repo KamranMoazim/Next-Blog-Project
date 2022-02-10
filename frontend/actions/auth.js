@@ -121,3 +121,15 @@ export const isAuth = () => {
         }
     }
 }
+
+
+export const updateUser = (user, next) => {
+    if (process.browser) {
+        if (localStorage.getItem("user")) {
+            let auth = JSON.parse(localStorage.getItem("user"))
+            user = auth;
+            localStorage.setItem("user", JSON.stringify(auth));
+            next()
+        }
+    }
+}

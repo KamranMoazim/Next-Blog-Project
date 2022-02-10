@@ -31,10 +31,13 @@ function SmallCard({blog}) {
         </div>
         <div className='card-body'>
             Posted {moment(blog.updatedAt).fromNow()} | By 
-            <Link href={`/blogs/${blog.slug}`}>
+            {/* <Link href={`/blogs/${blog.slug}`}>
                 <a className='float-right'>
-                    {blog.postedBy.name}
+                    {blog.postedBy.username}
                 </a>
+            </Link> */}
+            <Link href={`/profile/${blog.postedBy.username}`}>
+                    {blog.postedBy.username}
             </Link>
         </div>
     </div>

@@ -98,7 +98,9 @@ function SingleBlog({blog, router}) {
                                 {blog.title}
                             </h1>
                             <p className='mark mt-3 mark'>
-                                Written By {blog.postedBy.name} | Published {moment(blog.updatedAt).fromNow()}
+                                Written By <Link href={`/profile/${blog.postedBy.username}`}>
+                                    {blog.postedBy.username}
+                                </Link> | Published {moment(blog.updatedAt).fromNow()}
                             </p>
                             <div className='pb-3'>
                                 {showAllCategories()}

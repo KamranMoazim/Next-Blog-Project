@@ -35,6 +35,11 @@ function AdminIndex() {
                   Delete/Update Blogs
                 </Link>
               </li>
+              <li className='list-group-item'>
+                <Link href="/profile/update">
+                  Update Profile
+                </Link>
+              </li>
             </ul>
           </div>
           <div className='col-md-8'>

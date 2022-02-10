@@ -68,7 +68,9 @@ function BlogRead() {
             return <div key={ind} className='mt-5'>
                 <h3>{blog.title}</h3>
                 <p className='mark mt-3 mark'>
-                    Written By {blog.postedBy.name} | Published {moment(blog.updatedAt).fromNow()}
+                    Written By <Link href={`/profile/${blog.postedBy.username}`}>
+                        {blog.postedBy.username}
+                    </Link> | Published {moment(blog.updatedAt).fromNow()}
                 </p>
                 <button className='btn btn-danger btn-sm' onClick={()=>deleteConfirm(blog.slug)}>
                     Delete Blog

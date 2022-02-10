@@ -77,7 +77,7 @@ function BlogCreate({router}) {
  
   const publishBlog = (e) => {
     e.preventDefault();
-    console.log(formData.get("body"));
+    // console.log(formData.get("body"));
     createBlog(formData, token)
       .then((data)=>{
         if (data.error) {
