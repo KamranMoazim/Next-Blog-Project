@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import Router from 'next/router';
 
-import {signup, isAuth} from "../../actions/auth"
+import {signup, isAuth, accountActivationSignup} from "../../actions/auth"
 
 function SignupComponent() {
 
@@ -28,6 +28,7 @@ function SignupComponent() {
         const user = {name, email, password};
 
         signup(user)
+        // accountActivationSignup(user)
         .then(data => {
             if (data.error) {
                 setValues({...values, error:data.error, loading:false })
@@ -53,6 +54,9 @@ function SignupComponent() {
     const showLoading = () => (loading ? <div className='alert alert-info'> {loading} </div> : "")
     const showError = () => (error ? <div className='alert alert-danger'> {error} </div> : "")
     const showMessage = () => (message ? <div className='alert alert-info'> {message} </div> : "")
+    const showButton = () => (<button className='btn btn-outline-danger mt-2' onClick={()=>{Router.push("/auth/password/forgot")}}> 
+                                    Reset Password
+                                </button>)
 
     const signupForm = () => {
         return (
@@ -81,6 +85,7 @@ function SignupComponent() {
             {showLoading()}
             {showMessage()}
             {showForm && signupForm()}
+            {showButton()}
         </>
     )
 }

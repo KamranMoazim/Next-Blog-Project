@@ -1,6 +1,6 @@
 import Router from 'next/router';
 import React, {useState, useEffect} from 'react';
-
+import Link from 'next/link';
 import {signin, authenticate, isAuth} from "../../actions/auth"
 
 function SigninComponent() {
@@ -54,11 +54,9 @@ function SigninComponent() {
     const showLoading = () => (loading ? <div className='alert alert-info'> {loading} </div> : "")
     const showError = () => (error ? <div className='alert alert-danger'> {error} </div> : "")
     const showMessage = () => (message ? <div className='alert alert-info'> {message} </div> : "")
-    const showMessage = () => (<div className='alert alert-danger'> 
-    <Link href={`/auth/password/forgot`}>
-        Reset Password
-    </Link>
-    </div>)
+    const showButton = () => (<button className='btn btn-outline-danger mt-2' onClick={()=>{Router.push("/auth/password/forgot")}}> 
+                                    Reset Password
+                                </button>)
 
     const signinForm = () => {
         return (
@@ -84,6 +82,7 @@ function SigninComponent() {
             {showLoading()}
             {showMessage()}
             {showForm && signinForm()}
+            {showButton()}
         </>
     )
 }

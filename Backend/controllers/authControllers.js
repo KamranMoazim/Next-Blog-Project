@@ -10,6 +10,51 @@ const {errorHandler} =  require( "../helpers/dbErrorHandler")
 
 
 
+exports.accountActivationSignup = (req, res) => {
+
+    const {name, email, password} = req.body;
+
+    User
+        .findOne({
+            email: email
+        })
+        .exec((err, user)=>{
+            if(user){
+                return res.status(400).json({
+                    error:"Email is already taken!"
+                })
+            }
+            
+            const token = jwt.sign({name, email, password}, process.env.JWT_SECRET_KEY_ACCOUNT_ACTIVATION, {expiresIn:"10m"})
+
+
+            const emailData = {
+                to:email,
+                from:process.env.EMAIL_FROM,
+                subject:`Account Activation Link - ${process.env.APP_NAME}`,
+                text:`Email received for Account Activation`,
+                html:`
+                    <p>Please use following link to Activate your Account!</p>
+                    <h4>${process.env.CLIENT_URL}/auth/account/activate/${token}</h4>
+                    <hr/>
+                    <p>This Email may containe sensitive Information!</p>
+                    <p>https://seoblog.com</p>
+                `
+            }
+
+            sgMail
+                .send(emailData)
+                .then((res)=>{
+                    return res.json({
+                        message:`Email has sent to ${email}. Link will Expire in 10 minutes`
+                    })
+                })
+            
+        })
+}
+
+
+
 exports.signup = (req, res) => {
 
     // validating

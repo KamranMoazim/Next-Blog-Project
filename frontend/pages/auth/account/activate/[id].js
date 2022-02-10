@@ -1,39 +1,47 @@
 import React, {useState, useEffect} from 'react';
-import Layout from "../../../components/Layout"
+import Layout from "../../../../components/Layout"
 import {withRouter} from "next/router"
-import {resetPassword} from "../../../actions/auth"
+import jwt from "jsonwebtoken"
+import {signup} from "../../../../actions/auth"
 
 
-function reset({router}) {
+function activate({router}) {
 
     // router.query.id
     const [values, setValues] = useState({
-        newPassword:"",
-        buttonText:"Reset Password",
+        name:"",
+        email:"",
+        password:"",
+        buttonText:"Activate Account",
         success:false,
         error:false,
     })
 
-    const {newPassword, buttonText, success, error} = values
+    const {name, email, password, buttonText, success, error} = values
+
+    useEffect(()=>{
+        let token = router.query.id;
+        if (token) {
+            const {name, email, password} = jwt.decode(token);
+            setValues({...values, name, email, password, success:false, error:false});
+        } else {
+            setValues({...values, success:false, error:"Link has expired!"});
+        }
+    },[])
 
     const clickSubmit = (e) => {
         e.preventDefault()
-        setValues({...values, buttonText:"Changing Password..."})
-        resetPassword({newPassword, resetPasswordLink:router.query.id })
+        setValues({...values, buttonText:"Activating Account..."})
+        signup({name, email, password})
             .then((data)=>{
                 console.log(data)
                 if (data.error) {
                     setValues({...values, error:data.error })
                 } else {
-                    setValues({...values, newPassword:"", buttonText:"Password Changed", success:true, error:false});
+                    setValues({...values, buttonText:"Account Activated Successfully!", success:true, error:false});
                 }
             })
     }
-
-    const handleChange = (name) => (e) => {
-        setValues({...values, [name]:e.target.value, buttonText:"Reset Password", success:false, error:false})
-    }
-
 
     const showSuccess = () => (
         <div className='alert alert-success' style={{display: success? "" : "none"}}>
@@ -51,10 +59,6 @@ function reset({router}) {
     const showForm = () => {
         return (
             <form onSubmit={clickSubmit} className='pb-5'>
-                <div className='form-group'>
-                    <label className='lead'>New Password</label>
-                    <input  type="text" onChange={handleChange("newPassword")} className='form-control' value={newPassword} required />
-                </div>
                 <div>
                     <button className='btn btn-primary'>
                         {buttonText}
@@ -67,7 +71,7 @@ function reset({router}) {
   return (
     <Layout>
         <div className='container'>
-            <h2>Enter New Password</h2>
+            <h2>Account Activation</h2>
             {showSuccess()}
             {showError()}
             {showForm()}
@@ -77,4 +81,4 @@ function reset({router}) {
 }
 
 
-export default withRouter(reset)
+export default withRouter(activate)

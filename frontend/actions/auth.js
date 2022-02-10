@@ -34,6 +34,24 @@ export const signup = (user) => {
         })
 }
 
+
+export const accountActivationSignup = (user) => {
+    return fetch(`${API}/account-activation-signup`, {
+        method:"POST",
+        headers:{
+            Accept:"application/json",
+            "content-type":"application/json"
+        },
+        body:JSON.stringify(user)
+    })
+        .then((res)=>{
+            return res.json();
+        })
+        .catch((err)=>{
+            console.log(err);
+        })
+}
+
 export const signin = (user) => {
     return fetch(`${API}/signin`, {
         method:"POST",
