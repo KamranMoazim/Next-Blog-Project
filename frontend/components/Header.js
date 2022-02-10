@@ -47,6 +47,14 @@ function Header() {
                             </Link>
                     </NavItem>
 
+                    <NavItem>
+                            <Link href="/contact">
+                                <NavLink>
+                                    {`Contact Form`}
+                                </NavLink>
+                            </Link>
+                    </NavItem>
+
                     {isAuth() && isAuth().role === 0 && (
                         <NavItem>
                             <Link href="/user">
@@ -89,7 +97,11 @@ function Header() {
                             </NavLink>
                         </NavItem>
                     )}
-
+                    <NavItem>
+                        <NavLink className='btn btn-primary' style={{cursor:"pointer"}} onClick={()=>Router.replace("/user/crud/blog")}>
+                            Write a Blog
+                        </NavLink>
+                    </NavItem>
                 </Nav>
                 </Collapse>
             </Navbar>

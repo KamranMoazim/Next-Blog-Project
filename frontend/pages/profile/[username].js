@@ -6,7 +6,7 @@ import Link from "next/link"
 import moment from "moment"
 import Layout from "../../components/Layout"
 import {userPublicProfile} from "../../actions/user"
-
+import ContactFrom from '../../components/ContactFrom';
 
 
 const UserProfile = ({user, blogs}) => {
@@ -71,7 +71,8 @@ const UserProfile = ({user, blogs}) => {
                                     Message {user.name}
                                 </h5>
                                 <br/>
-                                <p>Contact Form</p>
+                                {/* <p>Contact Form</p> */}
+                                <ContactFrom authorEmail={user.email} />
                             </div>
                         </div>
                     </div>
