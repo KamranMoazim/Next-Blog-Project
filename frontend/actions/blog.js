@@ -1,10 +1,20 @@
 import fetch from "isomorphic-fetch"
-
+import {isAuth} from "../actions/auth"
 import {API} from "../config"
 import queryString from "query-string"
 
 export const createBlog = (blog, token) => {
-    return fetch(`${API}/blog`, {
+
+    let createBlogEndpoint;
+
+    if (isAuth() && isAuth().role === 1) {
+        createBlogEndpoint = `${API}/blog`
+    } else if (isAuth() && isAuth().role === 0) {
+        createBlogEndpoint = `${API}/user/blog`
+    }
+
+
+    return fetch(createBlogEndpoint, {
         method:"POST",
         headers:{
             Accept:"application/json",
@@ -91,8 +101,17 @@ export const getBlogs = () => {
 
 
 export const removeBlog = (slug, token) => {
+
+    let removeBlogEndpoint;
+
+    if (isAuth() && isAuth().role === 1) {
+        removeBlogEndpoint = `${API}/blog/${slug}`
+    } else if (isAuth() && isAuth().role === 0) {
+        removeBlogEndpoint = `${API}/user/blog/${slug}`
+    }
+
     // console.log(slug);
-    return fetch(`${API}/blog/${slug}`, {
+    return fetch(removeBlogEndpoint, {
         method:"DELETE",
         headers:{
             Accept:"application/json",
@@ -110,7 +129,16 @@ export const removeBlog = (slug, token) => {
 
 
 export const updateBlog = (blog, token, slug) => {
-    return fetch(`${API}/blog/${slug}`, {
+
+    let updateBlogEndpoint;
+
+    if (isAuth() && isAuth().role === 1) {
+        updateBlogEndpoint = `${API}/blog/${slug}`
+    } else if (isAuth() && isAuth().role === 0) {
+        updateBlogEndpoint = `${API}/user/blog/${slug}`
+    }
+
+    return fetch(updateBlogEndpoint, {
         method:"PUT",
         headers:{
             Accept:"application/json",
