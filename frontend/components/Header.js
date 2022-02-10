@@ -98,7 +98,15 @@ function Header() {
                         </NavItem>
                     )}
                     <NavItem>
-                        <NavLink className='btn btn-primary' style={{cursor:"pointer"}} onClick={()=>Router.replace("/user/crud/blog")}>
+                        <NavLink className='btn btn-primary' style={{cursor:"pointer"}} onClick={()=>{
+                            if (!isAuth()) {
+                                Router.replace("/signin")
+                            } else if (isAuth() && isAuth().role === 0) {
+                                Router.replace("/user/crud/blog")
+                            } else if (isAuth() && isAuth().role === 1) {
+                                Router.replace("/admin/crud/blog")
+                            }
+                        }}>
                             Write a Blog
                         </NavLink>
                     </NavItem>

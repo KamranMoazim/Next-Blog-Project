@@ -1,37 +1,38 @@
-import React, { useState } from 'react'
+import React, {useState, useEffect} from 'react';
+import Layout from "../../../components/Layout"
+import {forgotPassword} from "../../../actions/auth"
 
-import {emailContactFrom} from "../actions/form"
 
-function ContactFrom({authorEmail=""}) {
+
+function Forgot() {
 
     const [values, setValues] = useState({
-        name:"",
         email:"",
         message:"",
-        buttonText:"Send Message",
+        buttonText:"Reset Password",
         sent:false,
         success:false,
         error:false,
     })
 
-    const {name, email, message, buttonText, success, error, sent} = values
+    const { email, message, buttonText, success, error, sent } = values
 
     const clickSubmit = (e) => {
         e.preventDefault()
-        setValues({...values, buttonText:"Sending..."})
-        emailContactFrom({name, email, message })
+        setValues({...values, buttonText:"Sending Email..."})
+        forgotPassword(email)
             .then((data)=>{
                 console.log(data)
                 if (data.error) {
                     setValues({...values, error:data.error })
                 } else {
-                    setValues({...values, name:"", email:"", message:"", buttonText:"Message Sent", success:true, error:false});
+                    setValues({...values, email:"", message:"", buttonText:"Email Sent", success:true, error:false});
                 }
             })
     }
 
     const handleChange = (name) => (e) => {
-        setValues({...values, [name]:e.target.value, buttonText:"Send Message", success:false, error:false})
+        setValues({...values, [name]:e.target.value, buttonText:"Reset Password", success:false, error:false})
     }
 
 
@@ -52,15 +53,6 @@ function ContactFrom({authorEmail=""}) {
         return (
             <form onSubmit={clickSubmit} className='pb-5'>
                 <div className='form-group'>
-                    <label className='lead'>Message</label>
-                    {/* <input  type="text" onChange={handleChange("name")} className='form-control' value={name} required /> */}
-                    <textarea type="text" onChange={handleChange("message")} className='form-control' value={message} rows="10" required></textarea>
-                </div>
-                <div className='form-group'>
-                    <label className='lead'>Name</label>
-                    <input  type="text" onChange={handleChange("name")} className='form-control' value={name} required />
-                </div>
-                <div className='form-group'>
                     <label className='lead'>Email</label>
                     <input  type="email" onChange={handleChange("email")} className='form-control' value={email} required />
                 </div>
@@ -74,12 +66,15 @@ function ContactFrom({authorEmail=""}) {
     }
 
   return (
-    <>
-        {showSuccess()}
-        {showError()}
-        {showForm()}
-    </>
+    <Layout>
+        <div className='container'>
+            <h2>Reset Password</h2>
+            {showSuccess()}
+            {showError()}
+            {showForm()}
+        </div>
+    </Layout>
   )
 }
 
-export default ContactFrom
+export default Forgot

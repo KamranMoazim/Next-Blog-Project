@@ -25,3 +25,18 @@ exports.userSigninValidator = [
         .isAlphanumeric()
         .withMessage("Password must contain Alphanumeric Characters."),
 ]
+
+exports.forgotPasswordValidator = [
+    check("email")
+        .isEmpty()
+        .isEmail()
+        .withMessage("Email is Required and must be Valid."),
+]
+
+exports.resetPasswordValidator = [
+    check("newPassword")
+        .isLength({min:6})
+        .withMessage("Password must be of at least 6.")
+        .isAlphanumeric()
+        .withMessage("Password must contain Alphanumeric Characters."),
+]

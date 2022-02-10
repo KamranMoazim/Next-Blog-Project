@@ -71,7 +71,6 @@ const UserProfile = ({user, blogs}) => {
                                     Message {user.name}
                                 </h5>
                                 <br/>
-                                {/* <p>Contact Form</p> */}
                                 <ContactFrom authorEmail={user.email} />
                             </div>
                         </div>

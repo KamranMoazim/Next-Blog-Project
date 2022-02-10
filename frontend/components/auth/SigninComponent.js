@@ -54,6 +54,11 @@ function SigninComponent() {
     const showLoading = () => (loading ? <div className='alert alert-info'> {loading} </div> : "")
     const showError = () => (error ? <div className='alert alert-danger'> {error} </div> : "")
     const showMessage = () => (message ? <div className='alert alert-info'> {message} </div> : "")
+    const showMessage = () => (<div className='alert alert-danger'> 
+    <Link href={`/auth/password/forgot`}>
+        Reset Password
+    </Link>
+    </div>)
 
     const signinForm = () => {
         return (
