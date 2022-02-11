@@ -2,6 +2,7 @@ import Router from 'next/router';
 import React, {useState, useEffect} from 'react';
 import Link from 'next/link';
 import {signin, authenticate, isAuth} from "../../actions/auth"
+import GoogleLoginComponent from '../GoogleLogin';
 
 function SigninComponent() {
 
@@ -82,6 +83,7 @@ function SigninComponent() {
             {showLoading()}
             {showMessage()}
             {showForm && signinForm()}
+            <GoogleLoginComponent />
             {showButton()}
         </>
     )

@@ -7,6 +7,7 @@ module.exports = {
     PRODUCTION: false,
     DOMAIN_DEVELOPEMENT: "http://localhost:3000",
     DOMAIN_PRODUCTION: "https://seoblog.com",
-    DISQUS_SHORTNAME: "seo-blog-com"
+    DISQUS_SHORTNAME: "seo-blog-com",
+    GOOGLE_CLIENT_ID:"fkjsjdfkjdf843fjkjfdsj7348ehfbj83yrehdbvwyfsdbjx"
   }
 }

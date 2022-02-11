@@ -98,7 +98,7 @@ function Header() {
                         </NavItem>
                     )}
                     <NavItem>
-                        <NavLink className='btn btn-primary' style={{cursor:"pointer", color:"white"}} onClick={()=>{
+                        <a className='btn btn-primary' style={{cursor:"pointer", color:"white"}} onClick={()=>{
                             if (!isAuth()) {
                                 Router.replace("/signin")
                             } else if (isAuth() && isAuth().role === 0) {
@@ -108,7 +108,7 @@ function Header() {
                             }
                         }}>
                             Write a Blog
-                        </NavLink>
+                        </a>
                     </NavItem>
                 </Nav>
                 </Collapse>

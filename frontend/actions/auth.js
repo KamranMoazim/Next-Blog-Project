@@ -69,6 +69,23 @@ export const signin = (user) => {
         })
 }
 
+export const googleSignin = (user) => {
+    return fetch(`${API}/google-signin`, {
+        method:"POST",
+        headers:{
+            Accept:"application/json",
+            "content-type":"application/json"
+        },
+        body:JSON.stringify(user)
+    })
+        .then((res)=>{
+            return res.json();
+        })
+        .catch((err)=>{
+            console.log(err);
+        })
+}
+
 export const signout = (next) => {
     removeCookie("token");
     removeLocalStorage("user")    

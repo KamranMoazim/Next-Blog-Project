@@ -11,6 +11,7 @@ router.post("/signin", userSigninValidator, signin);
 router.get("/signout", signout);
 router.put("/forgot-password", resetPasswordValidator, resetPassword);
 router.put("/reset-password", forgotPasswordValidator, forgotPassword);
+router.post("/google-signin", googleSignin);
 
 // testing
 // router.get("/secret", requireSignin, (req, res)=>{
